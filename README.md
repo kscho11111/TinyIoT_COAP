@@ -1,4 +1,9 @@
 # TinyIoT_COAP
 Adopt Coap to TinyIoT
 
-hihihihihihihihi
+int main(){
+  printf("hello");
+
+  return 0;
+}
+
