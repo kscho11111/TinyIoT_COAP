@@ -1,17 +1,28 @@
-#include "microcoap.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    unsigned char ver;   // 버전
+    unsigned char type;  // 메시지 타입
+    unsigned char tkl;   // 토큰 길이
+    unsigned char code;  // 메시지 코드
+    unsigned short id;   // 식별자
+    // 토큰, 옵션 및 페이로드 추가 가능
+} coap_header_t;
 
 int main() {
-    // UDP 소켓 설정
-    // 서버의 IP와 포트 설정
+    coap_header_t coap_msg;
+    
+    // CoAP 메시지 초기화
+    memset(&coap_msg, 0, sizeof(coap_header_t));
+    coap_msg.ver = 1; // CoAP 버전 1
+    coap_msg.type = 0; // Confirmable 메시지
+    coap_msg.tkl = 0;  // 토큰 없음
+    coap_msg.code = 1; // GET 요청
+    coap_msg.id = 1234; // 임의의 메시지 ID
 
-    // CoAP 메시지 생성
-    // CoAP GET 요청을 위한 메시지 구성
-
-    // 메시지 전송
-    // UDP를 통해 서버로 메시지 전송
-
-    // 응답 수신 및 처리
-    // 서버로부터의 응답을 기다리고 처리
+    // 이곳에서 CoAP 메시지를 전송하거나 처리하는 로직을 추가
 
     return 0;
 }
