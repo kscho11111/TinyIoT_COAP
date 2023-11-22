@@ -197,7 +197,7 @@ int handle_onem2m_request(oneM2MPrimitive *o2pt, RTNode *target_rtnode){
 		return rsc;
 }
 
-// 이 두 함수는 oneM2M 통신 프로토콜을 사용하여 요청을 처리함
+// 이 두 함수는 httpd.c에 만들어져있는 함수이고, oneM2M 통신 프로토콜을 사용하여 요청을 처리함
 
 void stop_server(int sig){
 	logger("MAIN", LOG_LEVEL_INFO, "Shutting down server...");
