@@ -211,7 +211,7 @@ void respond(int slot) {
             req->payload = (char *)calloc(MAX_PAYLOAD_SIZE, sizeof(char));
             recv(clients[slot], req->payload, MAX_PAYLOAD_SIZE, 0);
         }
-
+		
         if(req->payload) normalize_payload(req->payload);
         // bind clientfd to stdout, making it easier to write
         
