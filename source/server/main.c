@@ -18,6 +18,7 @@
 #include "config.h"
 #include "onem2mTypes.h"
 #include "mqttClient.h"
+#include "coap.h"
 
 ResourceTree *rt;
 void route(oneM2MPrimitive *o2pt);
