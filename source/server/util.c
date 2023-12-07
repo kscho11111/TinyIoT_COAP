@@ -597,7 +597,6 @@ void init_server() {
 		db_store_resource(cse, CSE_BASE_NAME);
 	}
 	sprintf(poa, "http://%s:%s", SERVER_HOST, SERVER_PORT);
-
 	cJSON *poa_obj = cJSON_CreateArray();
 	cJSON_AddItemToArray(poa_obj, cJSON_CreateString(poa));
 	cJSON_AddItemToObject(cse, "poa", poa_obj);

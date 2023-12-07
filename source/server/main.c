@@ -88,9 +88,9 @@ int main(int argc, char **argv) {
 
 void route(oneM2MPrimitive *o2pt) {
 	int rsc = 0;
-    double start;
+   double start;
 
-    start = (double)clock() / CLOCKS_PER_SEC; // runtime check - start
+   start = (double)clock() / CLOCKS_PER_SEC; // runtime check - start
 	RTNode* target_rtnode = parse_uri(o2pt, rt->cb);
 	int e = result_parse_uri(o2pt, target_rtnode);
 	if(e != -1) e = check_payload_size(o2pt);
