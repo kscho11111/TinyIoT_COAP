@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libcoap-3-openssl.so.3'
+dlname=''
 
 # Names of this library.
-library_names='libcoap-3-openssl.so.3.1.1 libcoap-3-openssl.so.3 libcoap-3-openssl.so'
+library_names=''
 
 # The name of the static archive.
 old_library='libcoap-3-openssl.a'
