@@ -49,14 +49,14 @@ int main(int argc, char **argv) {
 		\"m2m:cb\": {\"ri\":\"\", \"cst\":0, \"csi\":\"\", \"srt\":[\"\"], \"poa\":[\"\"], \"srv\":[0], \"rr\":true} \
 	 }"
     );
-    //cJSON 라이브러리를 이용하여 JSON 문자열을 피싱
+    //cJSON 라이브러리를 이용하여 JSON 문자열을 파싱
 
     if(ATTRIBUTES == NULL){
         logger("DB", LOG_LEVEL_ERROR, "Cannot create attributes");
         logger("DB", LOG_LEVEL_DEBUG, "%s", cJSON_GetErrorPtr());
         return 0;
     }
-    //cJSON_Parse 함수가 JSON 파잇에 실패했을 때 에러 메시지를 출력 
+    //cJSON_Parse 함수가 JSON 파싱싱에 실패했을 때 에러 메시지를 출력 
 
 	if(!init_dbp()){
 		logger("MAIN", LOG_LEVEL_ERROR, "DB Error");
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 	if(argc >= 3 && !strcmp(argv[1], "-p")){
 		PORT = argv[2];
 	}
-    //전달된 인자가 3개 이상이고, 2번째 인자가 -p이면 3번째 인자를 port로 저장한다.
+    //전달된 인자가 3개 이상이고, 2번째 인자가 -p이면 3번째 인자를 port로 저장
 
 	init_server();
     /*util.h에 있는 init_server 함수 실행
