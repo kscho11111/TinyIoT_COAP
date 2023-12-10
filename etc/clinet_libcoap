@@ -1,5 +1,6 @@
 #include "coap2/coap.h"
 
+
 int main() {
     coap_context_t *ctx = NULL;
     coap_address_t dst_addr;
@@ -7,22 +8,23 @@ int main() {
     coap_pdu_t *request = NULL;
 
     // 대상 주소 및 포트 설정
-    // coap_address_init(&dst_addr);
-    // dst_addr.addr.sin.sin_family = AF_INET;
-    // dst_addr.addr.sin.sin_port = htons(5683); // CoAP 기본 포트
+    coap_address_init(&dst_addr);
+    dst_addr.addr.sin.sin_family = AF_INET;
+    dst_addr.addr.sin.sin_port = htons(5683); // CoAP 기본 포트
 
     // 클라이언트 컨텍스트 및 세션 초기화
-    // ctx = coap_new_context(NULL);
-    // session = coap_new_client_session(ctx, NULL, &dst_addr, COAP_PROTO_UDP);
+    ctx = coap_new_context(NULL);
+    session = coap_new_client_session(ctx, NULL, &dst_addr, COAP_PROTO_UDP);
 
     // 요청 메시지 생성 및 전송
-    // request = coap_pdu_init(COAP_MESSAGE_CON, COAP_REQUEST_GET, coap_new_message_id(session), coap_session_max_pdu_size(session));
-    // coap_send(session, request);
+    request = coap_pdu_init(COAP_MESSAGE_CON, COAP_REQUEST_GET, 
+coap_new_message_id(session), coap_session_max_pdu_size(session));
+    coap_send(session, request);
 
     // 응답 대기 및 처리
 
     // 자원 해제
-    // coap_session_release(session);
-    // coap_free_context(ctx);
+    coap_session_release(session);
+    coap_free_context(ctx);
     return 0;
 }

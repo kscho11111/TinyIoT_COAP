@@ -1,28 +1,29 @@
 #include "coap2/coap.h"
 
+
 int main() {
     coap_context_t  *ctx = NULL;
     coap_address_t serv_addr;
     coap_resource_t *resource = NULL;
 
     // 서버 주소 및 포트 설정
-    // coap_address_init(&serv_addr);
-    // serv_addr.addr.sin.sin_family = AF_INET;
-    // serv_addr.addr.sin.sin_port = htons(5683); // CoAP 기본 포트
+    coap_address_init(&serv_addr);
+    serv_addr.addr.sin.sin_family = AF_INET;
+    serv_addr.addr.sin.sin_port = htons(5683); // CoAP 기본 포트
 
     // 서버 컨텍스트 초기화
-    // ctx = coap_new_context(&serv_addr);
+    ctx = coap_new_context(&serv_addr);
 
     // 리소스 추가 및 초기화
-    // resource = coap_resource_init(coap_make_str_const("test"), 0);
-    // coap_add_resource(ctx, resource);
+    resource = coap_resource_init(coap_make_str_const("test"), 0);
+    coap_add_resource(ctx, resource);
 
     // 서버 루프 실행
-    // while (1) {
-    //     coap_run_once(ctx, 0);
-    // }
+    while (1) {
+        coap_run_once(ctx, 0);
+    }
 
     // 자원 해제
-    // coap_free_context(ctx);
+    coap_free_context(ctx);
     return 0;
 }
