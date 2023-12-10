@@ -21,6 +21,7 @@
 #include "coap.h"
 
 ResourceTree *rt;
+void *coap_server(void *arg);
 void route(oneM2MPrimitive *o2pt);
 void stop_server(int sig);
 cJSON *ATTRIBUTES;
@@ -74,10 +75,11 @@ int main(int argc, char **argv) {
 	}
 	#endif
 
-	int res;
-	res = system("sudo ./coap-server");
-	serve_forever(PORT); // main oneM2M operation logic in void route()    
-	
+	pthread_t coap_thread;
+	pthread_create(&coap_thread, NULL, coap_server, NULL);
+
+	serve_forever(PORT);
+
 	#ifdef ENABLE_MQTT
 	pthread_join(mqtt, NULL);
 	if(terminate){
@@ -85,7 +87,14 @@ int main(int argc, char **argv) {
 	}
 	#endif
 
+	pthread_join(coap_thread, NULL);
+
 	return 0;
+}
+
+void *coap_server(void *arg){
+	system("sudo ./coap-server");
+	return NULL;
 }
 
 void route(oneM2MPrimitive *o2pt) {

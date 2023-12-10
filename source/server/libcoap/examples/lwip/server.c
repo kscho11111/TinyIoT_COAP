@@ -35,9 +35,9 @@
  * also, https://savannah.nongnu.org/bugs/?40245 was applied */
 
 #include "server-coap.h"
-
 #include <lwip/init.h>
 #include <lwip/timeouts.h>
+#include <time.h>
 
 #include <netif/etharp.h>
 #include <netif/tapif.h>
@@ -73,9 +73,9 @@ wait_for_input(void *arg, uint32_t milli_secs) {
   return ret;
 }
 
-int
-main(int argc, char **argv) {
-  struct netif netif;
+
+int main(int argc, char **argv) {
+	struct netif netif;
 #ifndef _WIN32
   struct sigaction sa;
 #endif
@@ -92,7 +92,7 @@ main(int argc, char **argv) {
 
   lwip_init();
 
-  printf("TCP/IP initialized.\n");
+  printf("\nTCP/IP initialized.\n");
 
 #if LWIP_IPV4
   netif_add(&netif, &ipaddr, &netmask, &gw, NULL, tapif_init, ethernet_input);
@@ -100,13 +100,25 @@ main(int argc, char **argv) {
   netif.flags |= NETIF_FLAG_ETHARP;
   netif_set_default(&netif);
   netif_set_up(&netif);
+  
+  time_t t = time(NULL);
+  struct tm *tm = localtime(&t);
+  char buffer[80];
+  strftime(buffer, sizeof(buffer), "%a %b %d %H:%M:%S %Y", tm);
 #if LWIP_IPV4
-  printf("IP4 %s\n", ip4addr_ntoa(ip_2_ip4(&netif.ip_addr)));
+  printf("%s", buffer);
+  printf(" [COAP]:IP4 coap://%s\n", ip4addr_ntoa(ip_2_ip4(&netif.ip_addr)));
 #endif /* LWIP_IPV4 */
 #if LWIP_IPV6
   netif_create_ip6_linklocal_address(&netif, 1);
+  
+  time_t t1 = time(NULL);
+  struct tm *tm1 = localtime(&t);
+  char buffer1[80];
+  strftime(buffer1, sizeof(buffer), "%a %b %d %H:%M:%S %Y", tm1);
 #if LWIP_IPV4
-  printf("IP6 [%s]\n", ip6addr_ntoa(&netif.ip6_addr[0].u_addr.ip6));
+  printf("%s", buffer);
+  printf(" [COAP]:IP6 [%s]\n", ip6addr_ntoa(&netif.ip6_addr[0].u_addr.ip6));
 #else /* ! LWIP_IPV4 */
   printf("IP6 [%s]\n", ip6addr_ntoa(&netif.ip6_addr[0].addr));
 #endif /* ! LWIP_IPV4 */
@@ -141,6 +153,12 @@ main(int argc, char **argv) {
     tapif_select(&netif);
 
     sys_check_timeouts();
+	 
+	 //coap_set_log_level(LOG_DEBUG);
+	 //coap_log(LOG_DEBUG, "Received a request from a client.\n");
+
+	 coap_set_log_level(COAP_LOG_DEBUG);
+	 coap_log(COAP_LOG_DEBUG, "Received a request from a client.\n");
 
     server_coap_poll();
   }

@@ -25,7 +25,6 @@
 
 #include <coap3/coap.h>
 #include "server-coap.h"
-
 coap_context_t *main_coap_context;
 
 static coap_time_t clock_offset;
@@ -224,7 +223,6 @@ server_coap_poll(void) {
   coap_io_process(main_coap_context, 1000);
   coap_ticks(&ticks_now);
   time_now = coap_ticks_to_rt(ticks_now);
-  //printf("HAHAHAHAHA\n");
 
   if (last_time != time_now) {
     /* This takes place once a second */
