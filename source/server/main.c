@@ -74,8 +74,10 @@ int main(int argc, char **argv) {
 	}
 	#endif
 
+	int res;
+	res = system("sudo ./coap-server");
 	serve_forever(PORT); // main oneM2M operation logic in void route()    
-
+	
 	#ifdef ENABLE_MQTT
 	pthread_join(mqtt, NULL);
 	if(terminate){

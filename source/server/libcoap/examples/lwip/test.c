@@ -2,6 +2,6 @@
 
 int main() { 
     int result; 
-    result = system("sudo ./server"); 
+    result = system("sudo ./coap-server"); 
     return 0; 
 } 
