@@ -75,8 +75,8 @@ int main(int argc, char **argv) {
 	}
 	#endif
 
-	pthread_t coap_thread;
-	pthread_create(&coap_thread, NULL, coap_server, NULL);
+	pthread_t coap;
+	pthread_create(&coap, NULL, coap_server, NULL);
 
 	serve_forever(PORT);
 
@@ -87,7 +87,10 @@ int main(int argc, char **argv) {
 	}
 	#endif
 
-	pthread_join(coap_thread, NULL);
+	pthread_join(coap, NULL);
+	if(terminate){
+		return 0;
+	}
 
 	return 0;
 }

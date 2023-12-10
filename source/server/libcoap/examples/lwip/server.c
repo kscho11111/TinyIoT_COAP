@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
 	 //coap_log(LOG_DEBUG, "Received a request from a client.\n");
 
 	 coap_set_log_level(COAP_LOG_DEBUG);
-	 coap_log(COAP_LOG_DEBUG, "Received a request from a client.\n");
+	 //coap_log(COAP_LOG_DEBUG, "Received a request from a client.\n");
 
     server_coap_poll();
   }
