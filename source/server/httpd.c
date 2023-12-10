@@ -29,7 +29,7 @@ extern void route(oneM2MPrimitive *o2pt);
 
 static char *buf[MAX_CONNECTIONS];
 
-// Client request
+// Client request 
 
 
 void *respond_thread(void *ps) {
